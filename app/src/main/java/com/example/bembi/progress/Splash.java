@@ -4,10 +4,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 
-public class splash extends AppCompatActivity {
-    private final int SPLASH_DISPLAY_LENGTH = 2000;
+public class Splash extends AppCompatActivity {
+    private final int SPLASH_DISPLAY_LENGTH = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,9 +14,9 @@ public class splash extends AppCompatActivity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                Intent mainIntent = new Intent(splash.this,MainActivity.class);
-                splash.this.startActivity(mainIntent);
-                splash.this.finish();
+                Intent mainIntent = new Intent(Splash.this,MainActivity.class);
+                Splash.this.startActivity(mainIntent);
+                Splash.this.finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
     }
