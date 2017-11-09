@@ -1,6 +1,8 @@
 package com.example.bembi.progress;
 
+import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -13,19 +15,31 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class Categories extends ListActivity {
+public class Categories extends Activity {
     private ArrayList<String> results = new ArrayList<String>();
     private String tableName = DBHelper.tableName;
     private SQLiteDatabase newDB;
+
+    //for test
+    ListView lv;
+    Context context;
+    public static int [] prgmImages={R.drawable.bembi,R.drawable.bembi,R.drawable.bembi,R.drawable.bembi,R.drawable.bembi,R.drawable.bembi,R.drawable.bembi,R.drawable.bembi,R.drawable.bembi};
+    public static String [] prgmNameList={"Let Us C","c++","JAVA","Jsp","Microsoft .Net","Android","PHP","Jquery","JavaScript"};
+    public static String [] prgRateList={"Let Us C","c++","JAVA","Jsp","Microsoft .Net","Android","PHP","Jquery","JavaScript"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_categories);
-        openAndQueryDatabase();
+        setContentView(R.layout.activity_categories);
+        //openAndQueryDatabase();
 
-        displayResultList();
+        //displayResultList();
+        context=this;
+
+        lv=(ListView) findViewById(R.id.list);
+        lv.setAdapter(new CategoriesAdapter(this, prgmNameList,prgmImages, prgRateList));
     }
-    private void displayResultList() {
+    /*private void displayResultList() {
         TextView tView = new TextView(this);
         tView.setText("This data is retrieved from the database and only 4 " +
                 "of the results are displayed");
@@ -38,6 +52,7 @@ public class Categories extends ListActivity {
         //change font color!!!!!
         Log.d("debug","displaying finished");
     }
+    */
     private void openAndQueryDatabase() {
         try {
             DBHelper dbHelper = new DBHelper(this.getApplicationContext());
