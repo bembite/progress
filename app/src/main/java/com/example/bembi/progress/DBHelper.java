@@ -44,39 +44,30 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.d("debug", String.valueOf(dbExists));
 
         if (dbExists) {
-// do nothing
+            // do nothing
         } else {
             DB = currentContext.openOrCreateDatabase(DBName, 0, null);
+            //CREATE TABLE IF NOT EXISTS second (ID Integer PRIMARY KEY AUTOINCREMENT, name varchar(255) NOT NULL, rate int NOT NULL);
+
             DB.execSQL("CREATE TABLE IF NOT EXISTS " +
                     tableName +
-                    " (LastName VARCHAR, FirstName VARCHAR," +
-                    " Country VARCHAR, Age INT(3));");
+                    " (ID Integer PRIMARY KEY AUTOINCREMENT, name varchar(255) NOT NULL, rate int NOT NULL);" );
+            //INSERT INTO categories (name,rate) VALUES ('rwerwer',1);
+            DB.execSQL("INSERT INTO " +
+                    tableName +
+                    " VALUES (null,'rwerwer',1);");
 
             DB.execSQL("INSERT INTO " +
                     tableName +
-                    " Values ('M','shumi','India',25);");
-            DB.execSQL("INSERT INTO " +
-                    tableName +
-                    " Values ('C','sarah','India',25);");
-            DB.execSQL("INSERT INTO " +
-                    tableName +
-                    " Values ('D','Lavya','USA',20);");
-            DB.execSQL("INSERT INTO " +
-                    tableName +
-                    " Values ('V','Avi','EU',25);");
-            DB.execSQL("INSERT INTO " +
-                    tableName +
-                    " Values ('T','Shenoi','Bangla',25);");
-            DB.execSQL("INSERT INTO " +
-                    tableName +
-                    " Values ('L','Lamha','Australia',20);");
+                    " VALUES (null,'rwerwer',1);");
+
             Log.d("debug","inserted");
         }
 
     }
     private boolean checkDbExists() {
         SQLiteDatabase checkDB = null;
-
+        Log.d("sql","checking if exist");
         try {
             String myPath = DBPath + DBName;
             checkDB = SQLiteDatabase.openDatabase(myPath, null,

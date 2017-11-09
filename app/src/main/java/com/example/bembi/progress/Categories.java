@@ -31,7 +31,7 @@ public class Categories extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
-        //openAndQueryDatabase();
+        openAndQueryDatabase();
 
         //displayResultList();
         context=this;
@@ -57,18 +57,18 @@ public class Categories extends Activity {
         try {
             DBHelper dbHelper = new DBHelper(this.getApplicationContext());
             newDB = dbHelper.getWritableDatabase();
-            Cursor c = newDB.rawQuery("SELECT FirstName, Age FROM " +
-                    tableName +
-                    " where Age > 10 LIMIT 4", null);
+            //SELECT name, rate FROM categories
+            Cursor c = newDB.rawQuery("SELECT name, rate FROM " +
+                    tableName+";", null);
 
             if (c != null ) {
                 if (c.moveToFirst()) {
                     do {
-                        String firstName = c.getString(c.getColumnIndex("FirstName"));
-                        Log.d("first name",firstName);
-                        int age = c.getInt(c.getColumnIndex("Age"));
-                        Log.d("Age", String.valueOf(age));
-                        results.add("Name: " + firstName + ",Age: " + age);
+                        String name = c.getString(c.getColumnIndex("name"));
+                        Log.d("first name",name);
+                        int rate = c.getInt(c.getColumnIndex("rate"));
+                        Log.d("Age", String.valueOf(rate));
+                        results.add("name: " + name + ",rate: " + rate);
                     }while (c.moveToNext());
                 }
             }
