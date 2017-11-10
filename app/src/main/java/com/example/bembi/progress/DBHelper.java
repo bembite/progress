@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.io.File;
+
 /**
  * Created by bembi on 11/4/17.
  */
@@ -15,10 +17,10 @@ import android.util.Log;
 public class DBHelper extends SQLiteOpenHelper {
     public SQLiteDatabase DB;
     public String DBPath;
-    public static String DBName = "categories";
+    public static String DBName = "progress";
     public static final int version = '1';
     public static Context currentContext;
-    public static String tableName = "Resource";
+    public static String tableName = "categories";
     public DBHelper(Context context) {
         super(context, DBName, null, version);
         currentContext = context;
@@ -55,13 +57,18 @@ public class DBHelper extends SQLiteOpenHelper {
             //INSERT INTO categories (name,rate) VALUES ('rwerwer',1);
             DB.execSQL("INSERT INTO " +
                     tableName +
-                    " VALUES (null,'rwerwer',1);");
+                    " VALUES (null,'Reading',-1);");
 
             DB.execSQL("INSERT INTO " +
                     tableName +
-                    " VALUES (null,'rwerwer',1);");
+                    " VALUES (null,'Working',6);");
+            DB.execSQL("INSERT INTO " +
+                    tableName +
+                    " VALUES (null,'Studing',12);");
 
             Log.d("debug","inserted");
+            DB.close();
+
         }
 
     }
@@ -69,9 +76,14 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase checkDB = null;
         Log.d("sql","checking if exist");
         try {
-            String myPath = DBPath + DBName;
+            File dbFile = currentContext.getDatabasePath(DBName);
+            Log.d("file", String.valueOf(dbFile.exists()));
+
+            String myPath = dbFile.getPath();
             checkDB = SQLiteDatabase.openDatabase(myPath, null,
                     SQLiteDatabase.OPEN_READONLY);
+            Log.d("debug_sql","opened");
+
 
         } catch (SQLiteCantOpenDatabaseException e) {
             Log.d("debug_sql","can`t open");

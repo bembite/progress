@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Categories extends Activity {
@@ -57,6 +58,13 @@ public class Categories extends Activity {
         try {
             DBHelper dbHelper = new DBHelper(this.getApplicationContext());
             newDB = dbHelper.getWritableDatabase();
+            File dbFile = this.getDatabasePath(DBHelper.DBName);
+            Log.d("file", String.valueOf(dbFile.exists()));
+
+            String myPath = dbFile.getPath();
+            //newDB=
+            //checkDB = SQLiteDatabase.openDatabase(myPath, null,SQLiteDatabase.OPEN_READONLY);
+
             //SELECT name, rate FROM categories
             Cursor c = newDB.rawQuery("SELECT name, rate FROM " +
                     tableName+";", null);
@@ -65,19 +73,26 @@ public class Categories extends Activity {
                 if (c.moveToFirst()) {
                     do {
                         String name = c.getString(c.getColumnIndex("name"));
-                        Log.d("first name",name);
+                        Log.d(" name",name);
                         int rate = c.getInt(c.getColumnIndex("rate"));
-                        Log.d("Age", String.valueOf(rate));
+                        Log.d("Rate", String.valueOf(rate));
                         results.add("name: " + name + ",rate: " + rate);
+
+
                     }while (c.moveToNext());
                 }
+            }
+            else
+            {
+                Log.d("debug","db is empty");
             }
         } catch (SQLiteException se ) {
             Log.e(getClass().getSimpleName(), "Could not create or Open the database");
         } finally {
-            if (newDB != null)
-                newDB.execSQL("DELETE FROM " + tableName);
+           // if (newDB != null)
+            //    newDB.execSQL("DELETE FROM " + tableName);
             newDB.close();
+
         }
 
     }

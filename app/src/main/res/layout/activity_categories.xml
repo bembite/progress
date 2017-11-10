@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:baselineAligned="false"
     android:orientation="vertical">
 
 
@@ -9,7 +10,8 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=" Computer Languages..."
+        android:text="Your categories"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="25dp"
         android:textStyle="bold" />
